@@ -1,0 +1,14 @@
+Revert "Add conform"
+
+This reverts commit 6e4e4bc97cf415cbae3caf0ec13f17a08a6c432b.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   lazyvim.json
+#	deleted:    lua/plugins/conform.lua
+#

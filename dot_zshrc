@@ -1,0 +1,484 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# ZSH_THEME="dunst"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+if [ -f $(brew --prefix)/etc/zsh_completion ]; then
+. $(brew --prefix)/etc/zsh_completion
+fi
+
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
+eval "$(rbenv init -)"
+
+export EDITOR=nvim
+export VISUAL="$EDITOR"
+alias mc="mc --nosubshell"
+alias cd="z"
+alias 2ip="curl ifconfig.co/json"
+
+eval "$(zoxide init zsh)"
+
+# The next line updates PATH for CLI.
+if [ -f '/Users/dgorodnichy/yandex-cloud/path.bash.inc' ]; then source '/Users/dgorodnichy/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/Users/dgorodnichy/yandex-cloud/completion.zsh.inc' ]; then source '/Users/dgorodnichy/yandex-cloud/completion.zsh.inc'; fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ssh-add ~/.ssh/id_ed25519
+# ssh-add ~/.ssh/id_rsa
+
+# <<<<< Enable natural text editing
+#
+# Move to the beginning of the line. `Cmd + Left Arrow`:
+bindkey "^[[1;9D" beginning-of-line
+# Move to the end of the line. `Cmd + Right Arrow`:
+bindkey "^[[1;9C" end-of-line
+# Move to the beginning of the previous word. `Option + Left Arrow`:
+bindkey "^[[1;3D" backward-word
+# Move to the beginning of the next word. `Option + Right Arrow`:
+bindkey "^[[1;3C" forward-word
+# Delete the word behind the cursor. `Option + Delete`:
+bindkey "^[[3;10~" backward-kill-word
+# Delete the word after the cursor. `Option + fn + Delete`:
+bindkey "^[[3;3~" kill-word
+#
+# Enable natural text editing >>>>>
+
+
+
+# opencode
+export PATH=/Users/dgorodnichy/.opencode/bin:$PATH
+
+# eval "$(ssh-agent -s)" 
+# ssh-add ~/.ssh/id_ed25519
+# ssh-add ~/.ssh/id_rsa
+export SSH_AUTH_SOCK=/Users/dgorodnichy/.bitwarden-ssh-agent.sock
+
+
+function tag_release() {
+    local conflict_branches=()
+    local branches=("develop" "stage" "stage2" "stage3")
+
+    # Get current branch
+    local current_branch
+    current_branch=$(git rev-parse --abbrev-ref HEAD)
+    git pull origin "$current_branch"
+
+    # Set tag name
+    local tag_name
+    if [ -n "$1" ]; then
+        tag_name="$1"
+        echo "ℹ️  Using provided tag name: $tag_name"
+    else
+        tag_name="v$(date +'%Y.%m.%d')"
+        echo "ℹ️  Using date-based tag name: $tag_name"
+    fi
+
+    # Check if tag already exists
+    if git rev-parse "$tag_name" >/dev/null 2>&1; then
+        echo "❌ Error: Tag $tag_name already exists."
+        return 1
+    fi
+
+    # Create and push tag
+    echo "🏷 Creating tag $tag_name on current branch ($current_branch)..."
+    git tag "$tag_name"
+    if [ $? -ne 0 ]; then
+        echo "❌ Error: Failed to create tag."
+        return 1
+    fi
+
+    echo "📤 Pushing tag $tag_name to remote..."
+    git push origin "$tag_name"
+    if [ $? -ne 0 ]; then
+        echo "❌ Error: Failed to push tag."
+        return 1
+    fi
+
+    # Merge to production first
+    echo "🔄 Merging to production branch..."
+    git checkout production
+    if [ $? -ne 0 ]; then
+        echo "❌ Error: Failed to checkout production branch."
+        return 1
+    fi
+
+    git pull origin production
+    if git merge --no-ff --no-edit "$current_branch"; then
+        echo "✅ Successfully merged to production."
+        git push origin production
+    else
+        echo "❌ Merge conflict detected when merging to production!"
+        echo "⚠️ Please resolve the conflicts manually and then continue the process."
+        git merge --abort
+        return 1
+    fi
+
+    # Merge to other branches
+    # TODO: fetch origin branches
+    for branch in "${branches[@]}"; do
+        if [[ "$branch" == "$current_branch" ]]; then
+          echo "⏩ Skipping current branch ($current_branch)"
+          continue  # Skip the current branch
+        fi
+
+        echo "🔄 Merging to $branch branch..."
+        git checkout "$branch"
+        if [ $? -ne 0 ]; then
+            echo "⚠️ Warning: Failed to checkout $branch branch. Skipping..."
+            conflict_branches+=("$branch")
+            continue
+        fi
+
+        git pull origin "$branch"
+        if git merge --no-ff --no-edit production; then
+            echo "✅ Successfully merged to $branch."
+            git push origin "$branch"
+        else
+            echo "⚠️ Merge conflict detected when merging to $branch!"
+            conflict_branches+=("$branch")
+            git merge --abort
+            git checkout - # Return to previous branch
+        fi
+    done
+
+    # Return to original branch
+    git checkout "$current_branch"
+    echo "🔙 Returned to original branch: $current_branch"
+
+    # Summary
+    echo -e "\n📊 Release Summary:"
+    echo "✅ Created and pushed tag: $tag_name"
+    echo "✅ Merged to production branch"
+
+    if [ ${#conflict_branches[@]} -eq 0 ]; then
+        echo "✅ Successfully merged to all target branches"
+    else
+        echo "⚠️  Merge conflicts occurred in the following branches:"
+        for branch in "${conflict_branches[@]}"; do
+            echo "   - $branch"
+        done
+        echo "ℹ️  You'll need to resolve these conflicts manually."
+    fi
+}
+
+function community_retag() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: community_retag <source_image:tag> <target_image:tag>"
+        echo "Example: community_retag sso-backend-stage:df928770 sso-backend:df928770"
+        return 1
+    fi
+
+    local source_image="$1"
+    local target_image="$2"
+    local registry="cr.yandex/crp707ie48p49ctj5fel"
+
+    local full_source="${registry}/${source_image}"
+    local full_target="${registry}/${target_image}"
+
+    docker login --username iam --password $(yc iam create-token) cr.yandex
+
+    echo "🚀 Starting image retagging operation"
+    echo "   Source: $full_source"
+    echo "   Target: $full_target"
+    echo "----------------------------------------"
+
+    # Step 1: Pull the source image
+    echo "📥 Pulling source image..."
+    if docker pull "$full_source"; then
+        echo "✅ Successfully pulled $full_source"
+    else
+        echo "❌ Failed to pull $full_source"
+        return 1
+    fi
+
+    # Step 2: Tag the image
+    echo "🏷️  Tagging image..."
+    if docker tag "$full_source" "$full_target"; then
+        echo "✅ Successfully tagged $full_source -> $full_target"
+    else
+        echo "❌ Failed to tag image"
+        return 1
+    fi
+
+    # Step 3: Push the target image
+    echo "📤 Pushing target image..."
+    if docker push "$full_target"; then
+        echo "✅ Successfully pushed $full_target"
+    else
+        echo "❌ Failed to push $full_target"
+        return 1
+    fi
+
+    # Step 4: Remove source image
+    echo "🧹 Cleaning up source image..."
+    if docker rmi "$full_source"; then
+        echo "✅ Successfully removed $full_source"
+    else
+        echo "⚠️  Warning: Could not remove $full_source (may be in use)"
+    fi
+
+    # Step 5: Remove target image
+    echo "🧹 Cleaning up target image..."
+    if docker rmi "$full_target"; then
+        echo "✅ Successfully removed $full_target"
+    else
+        echo "⚠️  Warning: Could not remove $full_target (may be in use)"
+    fi
+
+    echo "----------------------------------------"
+    echo "🎉 Retagging operation completed successfully!"
+    echo "   Image $target_image is now available in the registry"
+}
+
+function community_retag_lms() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: community_retag <source_image:tag> <target_image:tag>"
+        echo "Example: community_retag sso-backend-stage:df928770 sso-backend:df928770"
+        return 1
+    fi
+
+    local source_image="$1"
+    local target_image="$2"
+    local registry="cr.yandex/crpv4afmvshsb1c313n0"
+
+    local full_source="${registry}/${source_image}"
+    local full_target="${registry}/${target_image}"
+
+    docker login --username iam --password $(yc iam create-token) cr.yandex
+
+    echo "🚀 Starting image retagging operation"
+    echo "   Source: $full_source"
+    echo "   Target: $full_target"
+    echo "----------------------------------------"
+
+    # Step 1: Pull the source image
+    echo "📥 Pulling source image..."
+    if docker pull "$full_source"; then
+        echo "✅ Successfully pulled $full_source"
+    else
+        echo "❌ Failed to pull $full_source"
+        return 1
+    fi
+
+    # Step 2: Tag the image
+    echo "🏷️  Tagging image..."
+    if docker tag "$full_source" "$full_target"; then
+        echo "✅ Successfully tagged $full_source -> $full_target"
+    else
+        echo "❌ Failed to tag image"
+        return 1
+    fi
+
+    # Step 3: Push the target image
+    echo "📤 Pushing target image..."
+    if docker push "$full_target"; then
+        echo "✅ Successfully pushed $full_target"
+    else
+        echo "❌ Failed to push $full_target"
+        return 1
+    fi
+
+    # Step 4: Remove source image
+    echo "🧹 Cleaning up source image..."
+    if docker rmi "$full_source"; then
+        echo "✅ Successfully removed $full_source"
+    else
+        echo "⚠️  Warning: Could not remove $full_source (may be in use)"
+    fi
+
+    # Step 5: Remove target image
+    echo "🧹 Cleaning up target image..."
+    if docker rmi "$full_target"; then
+        echo "✅ Successfully removed $full_target"
+    else
+        echo "⚠️  Warning: Could not remove $full_target (may be in use)"
+    fi
+
+    echo "----------------------------------------"
+    echo "🎉 Retagging operation completed successfully!"
+    echo "   Image $target_image is now available in the registry"
+}
+
+function dep_retag() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: dep_retag <source_image:tag> <target_image:tag>"
+        echo "Example: dep_retag backend:df928770 backend:v2015.12.15"
+        return 1
+    fi
+
+    local source_image="$1"
+    local target_image="$2"
+    local registry="cr.yandex/crp5b1sb7rbrh42rkvgs"
+
+    local full_source="${registry}/${source_image}"
+    local full_target="${registry}/${target_image}"
+
+    docker login --username iam --password $(yc iam create-token) cr.yandex
+
+    echo "🚀 Starting image retagging operation"
+    echo "   Source: $full_source"
+    echo "   Target: $full_target"
+    echo "----------------------------------------"
+
+    # Step 1: Pull the source image
+    echo "📥 Pulling source image..."
+    if docker pull "$full_source"; then
+        echo "✅ Successfully pulled $full_source"
+    else
+        echo "❌ Failed to pull $full_source"
+        return 1
+    fi
+
+    # Step 2: Tag the image
+    echo "🏷️  Tagging image..."
+    if docker tag "$full_source" "$full_target"; then
+        echo "✅ Successfully tagged $full_source -> $full_target"
+    else
+        echo "❌ Failed to tag image"
+        return 1
+    fi
+
+    # Step 3: Push the target image
+    echo "📤 Pushing target image..."
+    if docker push "$full_target"; then
+        echo "✅ Successfully pushed $full_target"
+    else
+        echo "❌ Failed to push $full_target"
+        return 1
+    fi
+
+    # Step 4: Remove source image
+    echo "🧹 Cleaning up source image..."
+    if docker rmi "$full_source"; then
+        echo "✅ Successfully removed $full_source"
+    else
+        echo "⚠️  Warning: Could not remove $full_source (may be in use)"
+    fi
+
+    # Step 5: Remove target image
+    echo "🧹 Cleaning up target image..."
+    if docker rmi "$full_target"; then
+        echo "✅ Successfully removed $full_target"
+    else
+        echo "⚠️  Warning: Could not remove $full_target (may be in use)"
+    fi
+
+    echo "----------------------------------------"
+    echo "🎉 Retagging operation completed successfully!"
+    echo "   Image $target_image is now available in the registry"
+}

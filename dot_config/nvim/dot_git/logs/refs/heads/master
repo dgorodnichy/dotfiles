@@ -1,0 +1,18 @@
+0000000000000000000000000000000000000000 65896badf56f55817d1e678c509eb95604fc8ec8 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772638055 +0300	commit (initial): first commit
+65896badf56f55817d1e678c509eb95604fc8ec8 65896badf56f55817d1e678c509eb95604fc8ec8 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772638062 +0300	Branch: renamed refs/heads/main to refs/heads/master
+65896badf56f55817d1e678c509eb95604fc8ec8 f9b82a018e71ac74b6a8182c499cca2284f73e91 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772638676 +0300	commit: Add capabilities
+f9b82a018e71ac74b6a8182c499cca2284f73e91 63a9ccdfab380442d61c743575df4ed8335cb312 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772640481 +0300	commit: Add vim.opt.scrolloff = 8
+63a9ccdfab380442d61c743575df4ed8335cb312 ad0e4b317e587d7ea83c9143addd351603b67ce3 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772640507 +0300	commit: Allow cmd + c / cmd + v
+ad0e4b317e587d7ea83c9143addd351603b67ce3 c2790e12c9dd3ddbbed633a3e17288ad3ecec12d Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772641213 +0300	commit: Prettify scroll
+c2790e12c9dd3ddbbed633a3e17288ad3ecec12d bd4215d53ac6f036642517ada3547d0869512011 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772641238 +0300	commit: Simplify window switcher
+bd4215d53ac6f036642517ada3547d0869512011 b5103ef2028fa94b16325834d3291ec609d7c149 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772641555 +0300	commit: Refactoring
+b5103ef2028fa94b16325834d3291ec609d7c149 77deef4d696335da63e8b77d0b302959a0b4847a Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772645949 +0300	commit: Cleanup lsp config
+77deef4d696335da63e8b77d0b302959a0b4847a 23ac859cba06066e659586b34703ea84fc5e0849 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772694421 +0300	commit: Skip migration warnings
+23ac859cba06066e659586b34703ea84fc5e0849 a0878f96c1eb472ad967753e466fae7443a394bd Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772703358 +0300	commit: Remove .DS_Store
+a0878f96c1eb472ad967753e466fae7443a394bd 2a5d71d16f80ac9adadf1992f14cb74483de55db Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772703420 +0300	commit: Jump to next line with arrows
+2a5d71d16f80ac9adadf1992f14cb74483de55db e81ac74fb88888b4149fc0d326ceaea19446fd92 Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772707364 +0300	commit: Disable snippets plugins
+e81ac74fb88888b4149fc0d326ceaea19446fd92 868d9658c1a5fff8ecae953f68e09c9a1e8d2a2e Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772713429 +0300	commit: Refacor lsp to use new approach
+868d9658c1a5fff8ecae953f68e09c9a1e8d2a2e 900565a0fbb38e88c53066b03edf951ac2b31b6f Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1772714501 +0300	commit: Refactor lsp 2
+900565a0fbb38e88c53066b03edf951ac2b31b6f a606625b26d9d8777e0ae5d4fef01628a89b5a1c Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1775806867 +0300	commit: Update packages
+a606625b26d9d8777e0ae5d4fef01628a89b5a1c 6e4e4bc97cf415cbae3caf0ec13f17a08a6c432b Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1775809166 +0300	commit: Add conform
+6e4e4bc97cf415cbae3caf0ec13f17a08a6c432b c75920717ec47aa0d5610f714aa6777fa8623d1c Dmitry Gorodnichy <gorodnichiydv@psblab.ru> 1775815832 +0300	revert: Revert "Add conform"
