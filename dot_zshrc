@@ -124,10 +124,7 @@ eval "$(rbenv init -)"
 export EDITOR=nvim
 export VISUAL="$EDITOR"
 alias mc="mc --nosubshell"
-alias cd="z"
 alias 2ip="curl ifconfig.co/json"
-
-eval "$(zoxide init zsh)"
 
 # The next line updates PATH for CLI.
 if [ -f '/Users/dgorodnichy/yandex-cloud/path.bash.inc' ]; then source '/Users/dgorodnichy/yandex-cloud/path.bash.inc'; fi
