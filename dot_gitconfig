@@ -1,0 +1,13 @@
+[user]
+	name = Dmitry Gorodnichy
+	email = gorodnichiydv@psblab.ru
+[core]
+	excludesFile = ~/.gitignore
+;   pager = delta
+; [delta]
+;     side-by-side = true
+[push]
+	autoSetupRemote = true
+[gc]
+	reflogExpire = 180.days
+	reflogExpireUnreachable = 60.days

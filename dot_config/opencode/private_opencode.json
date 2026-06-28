@@ -1,0 +1,103 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "small_model": "kilo/minimax/minimax-m2.5:free",
+  "watcher": {
+    "ignore": [
+      ".git/**",
+      ".gitlab/**",
+      ".github/**",
+      ".infra/**",
+
+      "log/**",
+      "tmp/**",
+      "storage/**",
+      "public/assets/**",
+      "public/packs/**",
+
+      "node_modules/**",
+      "yarn.lock",
+      "package-lock.json",
+      "pnpm-lock.yaml",
+
+      "app/views/**",
+      "vendor/bundle/**",
+      "vendor/cache/**",
+      "gems/**",
+      "egines/**",
+
+      "db/migrate/**",
+      "db/seeds/**",
+      "db/schema_cache.yml",
+
+      "spec/**",
+      "test/**",
+      "features/**",
+
+      "cassettes/**",
+
+      "coverage/**",
+
+      ".idea/**",
+      ".vscode/**",
+      "*.swp",
+      "*.swo",
+
+      "app/assets/**",
+      "app/javascript/**",
+      "app/frontend/**",
+      "app/packs/**",
+
+      "config/webpack/**",
+      "config/webpacker.yml",
+      "config/importmap.rb",
+
+      "bin/**",
+
+      "docs/**",
+      "*.md",
+
+      "*.log",
+      "*.sqlite3",
+      "*.sqlite3-*",
+
+      "Dockerfile*",
+      "docker-compose*",
+    ]
+  },
+  "permission": {
+    "*": "ask",
+    "list": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "read": "allow",
+    "edit": "ask",
+    "bash": {
+      "*": "ask",
+      "dip *": "allow",
+      "ls *": "allow",
+      "ll *": "allow",
+      "la *": "allow",
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "git show *": "allow",
+      "pwd": "allow",
+      "echo *": "allow",
+      "which *": "allow",
+      "tree *": "allow",
+      "cat *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "curl *": "allow",
+      "wget *": "allow",
+      "ps *": "allow",
+      "whoami": "allow"
+    },
+    "webfetch": "allow",
+    "websearch": "allow",
+    "codesearch": "allow",
+    "question": "allow",
+    "todowrite": "allow"
+  },
+  "autoupdate": true,
+}

@@ -1,0 +1,232 @@
+#!/bin/bash
+
+# run_onchange_before_02-install-packages.sh.tmpl
+# chezmoi will execute this script when its content changes
+# (e.g., when you add a new package to the list below)
+
+set -euo pipefail
+
+OS="$(uname -s)"
+
+# ──────────────────────────────────────────────
+# macOS — via Homebrew
+# ──────────────────────────────────────────────
+if [ "$OS" = "Darwin" ]; then
+  echo "==> macOS detected: installing via Homebrew"
+
+  # Install Homebrew if missing
+  if ! command -v brew &>/dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+
+  echo "Updating Homebrew..."
+  brew update
+
+  # ── Formulas (CLI) ──
+  FORMULAS=(
+    git
+    lazygit
+    neovim
+    ripgrep
+    fd
+    fzf
+    ast-grep
+    tree-sitter
+    curl
+    wget
+    the_silver_searcher
+    node
+    pyenv
+    rbenv
+    ruby-build
+    go
+    k6
+    k9s
+    lazyssh
+    sops
+    mc
+    speedtest-cli
+    imagemagick
+    zsh-completions
+  )
+
+  echo "Installing formulas..."
+  for pkg in "${FORMULAS[@]}"; do
+    if brew list --formula "$pkg" &>/dev/null 2>&1; then
+      echo "  ✓ $pkg already installed"
+    else
+      echo "  + Installing $pkg..."
+      brew install "$pkg"
+    fi
+  done
+
+  # ── Casks (GUI) ──
+  CASKS=(
+    font-comic-shanns-mono-nerd-font
+    ghostty
+    obsidian
+    bitwarden
+  )
+
+  echo "Installing casks..."
+  for pkg in "${CASKS[@]}"; do
+    if brew list --cask "$pkg" &>/dev/null 2>&1; then
+      echo "  ✓ $pkg already installed"
+    else
+      echo "  + Installing $pkg..."
+      brew install --cask "$pkg"
+    fi
+  done
+
+  brew cleanup
+
+  echo "==> All packages installed on macOS"
+
+# ──────────────────────────────────────────────
+# Ubuntu — via apt
+# ──────────────────────────────────────────────
+elif [ "$OS" = "Linux" ]; then
+  echo "==> Linux detected: installing via apt"
+
+  if ! command -v apt &>/dev/null; then
+    echo "ERROR: apt not found. This script only supports Ubuntu/Debian."
+    exit 1
+  fi
+
+  sudo apt update
+
+  # ── apt packages ──
+  APT_PKGS=(
+    git
+    neovim
+    ripgrep
+    fd-find
+    fzf
+    silversearcher-ag
+    curl
+    wget
+    nodejs
+    npm
+    golang-go
+    mc
+    speedtest-cli
+    imagemagick
+    zsh
+    zsh-completions
+  )
+
+  echo "Installing apt packages..."
+  sudo apt install -y "${APT_PKGS[@]}"
+
+  # ── Python (pyenv from source) ──
+  if ! command -v pyenv &>/dev/null; then
+    echo "Installing pyenv..."
+    curl -fsSL https://pyenv.run | bash
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> "$HOME/.bashrc"
+    echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> "$HOME/.bashrc"
+    echo 'eval "$(pyenv init -)"' >> "$HOME/.bashrc"
+  fi
+
+  # ── Ruby (rbenv from source) ──
+  if [ ! -d "$HOME/.rbenv" ]; then
+    echo "Installing rbenv..."
+    git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+    cd "$HOME/.rbenv" && src/configure && make -C src
+    # ruby-build as a plugin
+    mkdir -p "$(rbenv root)"/plugins
+    git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> "$HOME/.bashrc"
+    echo 'eval "$(rbenv init -)"' >> "$HOME/.bashrc"
+  fi
+
+  # ── lazygit (latest via binary) ──
+  if ! command -v lazygit &>/dev/null; then
+    echo "Installing lazygit..."
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm -f lazygit lazygit.tar.gz
+  fi
+
+  # ── ast-grep (via cargo) ──
+  if ! command -v ast-grep &>/dev/null; then
+    echo "Installing ast-grep..."
+    if command -v cargo &>/dev/null; then
+      cargo install ast-grep
+    elif command -v npm &>/dev/null; then
+      npm install -g @ast-grep/cli
+    fi
+  fi
+
+  # ── tree-sitter CLI (via cargo or npm) ──
+  if ! command -v tree-sitter &>/dev/null; then
+    echo "Installing tree-sitter CLI..."
+    if command -v cargo &>/dev/null; then
+      cargo install tree-sitter-cli
+    elif command -v npm &>/dev/null; then
+      npm install -g tree-sitter-cli
+    fi
+  fi
+
+  # ── k6 (via apt GPG) ──
+  if ! command -v k6 &>/dev/null; then
+    echo "Installing k6..."
+    sudo gpg -k
+    sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+    echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+    sudo apt update
+    sudo apt install -y k6
+  fi
+
+  # ── k9s (via binary) ──
+  if ! command -v k9s &>/dev/null; then
+    echo "Installing k9s..."
+    K9S_VERSION=$(curl -s "https://api.github.com/repos/derailed/k9s/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo k9s.tar.gz "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz"
+    sudo tar xf k9s.tar.gz -C /usr/local/bin k9s
+    rm -f k9s.tar.gz
+  fi
+
+  # ── lazyssh (via go) ──
+  if ! command -v lazyssh &>/dev/null; then
+    echo "Installing lazyssh..."
+    if command -v go &>/dev/null; then
+      go install github.com/adembc/lazyssh@latest
+    fi
+  fi
+
+  # ── sops (via binary) ──
+  if ! command -v sops &>/dev/null; then
+    echo "Installing sops..."
+    SOPS_VERSION=$(curl -s "https://api.github.com/repos/getsops/sops/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo sops.deb "https://github.com/getsops/sops/releases/latest/download/sops_${SOPS_VERSION}_amd64.deb"
+    sudo dpkg -i sops.deb
+    rm -f sops.deb
+  fi
+
+  # ── bitwarden (via snap) ──
+  if ! command -v bitwarden &>/dev/null && ! snap list bitwarden &>/dev/null 2>&1; then
+    echo "Installing Bitwarden..."
+    sudo snap install bitwarden
+  fi
+
+  # ── obsidian (via direct .deb) ──
+  if ! command -v obsidian &>/dev/null; then
+    echo "Installing Obsidian..."
+    curl -Lo obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.8.9/obsidian_1.8.9_amd64.deb"
+    sudo dpkg -i obsidian.deb
+    sudo apt install -f -y
+    rm -f obsidian.deb
+  fi
+
+  echo "==> All packages installed on Ubuntu"
+
+else
+  echo "ERROR: unsupported OS: $OS"
+  exit 1
+fi
+
+echo "==> Package installation complete"
