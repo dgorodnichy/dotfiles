@@ -236,8 +236,11 @@ ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 fi
+
+# Clean up backup created by oh-my-zsh if it backed up chezmoi's .zshrc
+rm -f "$HOME/.zshrc.pre-oh-my-zsh"
 
 if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
   echo "Installing Powerlevel10k theme..."
